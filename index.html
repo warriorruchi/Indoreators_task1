@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Frontend Task</title>
+    <style>
+      /* CSS to style the table */
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+        width: 40rem;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://unpkg.com/@babel/standalone/babel.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="text/babel">
+      // constants
+      const numberOfColumns = 6;
+      const tableHeaders = [
+        {
+          id: 1,
+          header: "Onboarding Call",
+        },
+        {
+          id: 2,
+          header: "Google Search Console Access",
+        },
+        {
+          id: 3,
+          header: "Google Analytics Access",
+        },
+        {
+          id: 4,
+          header: "Website Access",
+        },
+        {
+          id: 5,
+          header: "Technical Audit",
+        },
+        {
+          id: 6,
+          header: "Anchor Text And Semantic Analysis",
+        },
+        {
+          id: 7,
+          header: "Anchor Text / URL mapping",
+        },
+        {
+          id: 8,
+          header: "Google Data Studio Report + Local Reporting Suite",
+        },
+        {
+          id: 9,
+          header: "Site Levle Optimization ",
+        },
+        {
+          id: 11,
+          header: "On Page Optimization",
+        },
+        {
+          id: 12,
+          header: "Content Creation",
+        },
+        {
+          id: 13,
+          header: "Content Publishing",
+        },
+        {
+          id: 14,
+          header: "Premium Press Release ",
+        },
+        {
+          id: 15,
+          header: "Authority Niche Placements",
+        },
+        {
+          id: 16,
+          header: "Review Management",
+        },
+        {
+          id: 17,
+          header: "Index Links",
+        },
+        {
+          id: 18,
+          header: "Video Recap",
+        },
+      ];
+
+      // React code
+      const App = () => {
+        const [data, setData] = React.useState([]);
+
+        const handleEdit = (id, key, value) => {
+          if (data.length > 0) {
+            setData((prevData) => {
+              let currData = prevData.map((item) => {
+                if (item[0] === key) {
+                  return [item[0], [...item[1], value]];
+                } else {
+                  return item;
+                }
+              });
+
+              return currData;
+            });
+          } else {
+            console.log("entering in else block");
+            setData([[key, [value]]]);
+          }
+        };
+
+        const prepareDataForPost = () => {
+          console.log("Data ready to post:", data);
+        };
+
+        return (
+          <div>
+            <h1>Month 1</h1>
+            <table>
+              <tbody>
+                {tableHeaders.map((header) => (
+                  <tr key={header.id}>
+                    <th className="verticalHeader">{header.header}</th>
+                    {Array.from({ length: numberOfColumns }).map((row, i) => (
+                      <td
+                        key={i}
+                        contentEditable
+                        onBlur={(e) => {
+                          handleEdit(i, header.header, e.target.textContent);
+                        }}
+                        className="editableCell"
+                      ></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={prepareDataForPost}>Prepare Data for API</button>
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
